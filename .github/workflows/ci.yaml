@@ -23,7 +23,7 @@ jobs:
   - name: Install dependencies
     run: pip install pylint
   - name: Run pylint
-    run: pylint producer.py
+    run: pylint producer.py --fail-under=5.0
  # 5. EditorConfig
   - name: Install EditorConfig
     run: pip install editorconfig
