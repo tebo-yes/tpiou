@@ -126,4 +126,4 @@ def fetch_and_publish():
 if __name__ == "__main__":
     fetch_and_publish()
     # ... (Beskonačna petlja, ako je potrebna za Zadatak 1)
-    time.sleep(5)
+    time.sleep(15)
