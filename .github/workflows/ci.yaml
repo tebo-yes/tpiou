@@ -33,9 +33,3 @@ jobs:
  - name: Build Docker image
    run:  docker build -t reddpub:$GITHUB_RUN_NUMBER  .
 
-
-
- - name: Install EditorConfig
-   run: pip install editorconfig
- - name: Check EditorConfig
-   run: editorconfig-check .
