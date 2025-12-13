@@ -1,0 +1,68 @@
+name: Consumer & Producer Pipeline
+on:
+ <action>:
+ branches: [...] # Na neku akciju (push na granu, pull request...) u ovim granama pokreće se workflow
+
+jobs:
+ deploy:
+ runs-on: ubuntu-latest
+ steps:
+ # 1. Checkout repository
+ # Radi checkout koda iz repozitorija
+ - uses: actions/checkout@v3
+ # 2. Authenticate to Google Cloud
+ - name: Authenticate to GCP
+ # Prijava u Google Cloud koristeći secrets ili service account
+   uses: google-github-actions/auth@v1
+   with:
+      credentials_json: ${{ secrets.GCP_SA_KEY }}
+ # 3 Set up Cloud SDK
+ - name: Authenticate to GCP
+   uses: google-github-actions/setup-gcloud@v1
+ # Instalira GCP SDK ako već nije instaliran
+ # 4. Configure Docker
+ - name: Configure Docker for Artifact Registry
+ # Konfigurira Docker za push i pull iz Artifact Registry
+   run:  # gcloud auth configure-docker ...
+# 5. Extract environment variables
+ - name: Extract environment variables
+ # Čitanje potrebnih varijabli iz .env datoteka ili sličnog izvora
+   id: extract_env
+   run: 
+ # PROJECT_ID = ...
+ # OTHER_ENV_VARS = ...
+
+ # ----- Consumer -----
+ - name: Build Consumer Docker image
+ # Docker build za Consumer
+   run: # docker build -t <consumer-image> .
+ - name: Push Consumer Docker image
+ # Push Docker image-a u Artifact Registry
+   run: # docker push <consumer-image>
+ - name: Deploy Consumer to Cloud Run
+ # Deploy Consumer servisa na Cloud Run
+   run: # gcloud run deploy <consumer-service> --image <consumer-image>--env-vars-file <env-file>
+
+   # ----- Producer -----
+ - name: Build Producer Docker image
+ # Docker build za Producer
+   run: # docker build -t <producer-image> .
+ - name: Push Producer Docker image
+ # Push Producer image-a u Artifact Registry
+   run: # docker push <producer-image>
+ - name: Deploy Producer Job to Cloud Run
+ # Deploy Producer Job-a
+   run: # gcloud run jobs deploy <producer-job> --image <producer-image>--env-vars-file <env-file>
+ - name: Execute Producer Job
+ # Pokretanje Producer Job-a
+   run: # gcloud run jobs execute <producer-job>
+
+ - name: Install dependencies
+   run: pip install pylint
+ - name: Run pylint
+   run: pylint 
+   
+ - name: Install EditorConfig
+   run: pip install editorconfig
+ - name: Check EditorConfig
+   run: editorconfig-check .
