@@ -28,7 +28,7 @@ jobs:
   - name: Install EditorConfig
     run: pip install editorconfig
   - name: Check EditorConfig
-    run: editorconfig src/producer.py
+    run: editorconfig $GITHUB_WORKSPACE/src/producer.py
  # 6. Configure Docker
   - name: Build Docker image
     run:  docker build -t reddpub:$GITHUB_RUN_NUMBER  .
