@@ -1,3 +1,6 @@
-FROM node:7
-ADD app.js /app.js
-ENTRYPOINT ["node", "app.js"]
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY producer.py .
+CMD ["python", "producer.py"]
