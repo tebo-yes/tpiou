@@ -4,14 +4,14 @@ on:
   branches: [ main, master ]
 jobs:
  deploy:
-  runs on: ubuntu-latest
+  runs-on: ubuntu-latest
   steps:
   - uses: actions/checkout@v3 # Radi checkout koda iz repozitorija
  # 2. Authenticate to Google Cloud
   - name: Authenticate to GCP # Prijava u Google Cloud koristeći secrets ili service account
     uses: google-github-actions/auth@v1
     with:
-      credentials_json: ${{ secrets.GCP_SA_KEY }}
+     credentials_json: ${{ secrets.GCP_SA_KEY }}
  # 3 Set up Cloud SDK
   - name: Set-up Cloud SDK
     uses: google-github-actions/setup-gcloud@v1 # Instalira GCP SDK ako već nije instaliran
@@ -19,7 +19,7 @@ jobs:
   - name: Set up Python
     uses: actions/setup-python@v5
     with:
-    python-version: '3.10'
+     python-version: '3.10'
   - name: Install dependencies
     run: pip install pylint
   - name: Run pylint
@@ -28,7 +28,7 @@ jobs:
   - name: Install EditorConfig
     run: pip install editorconfig
   - name: Check EditorConfig
-    run: editorconfig-check $GITUHUB_WORKSPACE/src/producer.py
+    run: editorconfig $GITHUB_WORKSPACE/src/producer.py
  # 6. Configure Docker
   - name: Build Docker image
     run:  docker build -t reddpub:$GITHUB_RUN_NUMBER  .

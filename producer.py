@@ -28,7 +28,6 @@ def get_reddit_credentials():
         credentials = json.loads(API_KEY_JSON_STRING)
 
         # 2. Ekstrakcija ključeva iz rječnika. PRILAGODITE OVE KLJUČEVE
-        # ako se u vašoj JSON datoteci/tajni zovu drugačije (npr. 'client_id_key', 'client_secret_key').
         client_id = credentials.get('client_id')
         client_secret = credentials.get('client_secret')
 
@@ -126,4 +125,4 @@ def fetch_and_publish():
 if __name__ == "__main__":
     fetch_and_publish()
     # ... (Beskonačna petlja, ako je potrebna za Zadatak 1)
-    time.sleep(5)
+    time.sleep(15)
